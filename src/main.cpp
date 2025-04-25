@@ -20,7 +20,7 @@ void setup() {
 
   if (true) {
     Serial.println("Ooops, no BNO055 detected ... Check wiring!");
-    while (1);
+    
   }
 
   delay(1000);
@@ -35,6 +35,7 @@ void setup() {
   Serial.println(test);        // Use println for the number and newline;
 
   initBLE();
+  Serial.println("BLE initialized.");
 }
 
 void loop() {

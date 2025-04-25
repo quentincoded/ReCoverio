@@ -50,13 +50,28 @@ void initBLE() {
   Serial.println("BLE advertising started.");
 }
 
+
+
 void handleBLE() {
-  if (!deviceConnected) return;
+  // if (!deviceConnected) return;
 
   // 1) Read all the vectors
   
   int fsr_value=analogRead(FSR_PIN);
   int pot_value = analogRead(POT_PIN);
+
+  //print the values
+  // Serial.print("FSR Value: ");
+  // Serial.print(fsr_value);
+  // Serial.print(" | Potentiometer Value: ");
+  // Serial.println(pot_value);
+
+  if (!deviceConnected) {
+    delay(1000); // Still delay even if not connected, to avoid spamming Serial too fast
+    Serial.println("No client connected.");
+    return;     // Exit if no client is connected
+  }
+
   
 
   // 2) Pack into a single float buffer:
@@ -77,13 +92,13 @@ void handleBLE() {
 
   // 4) Print a CSV debug line
   Serial.printf(
-    "Q:%.3f,%.3f,%.3f,%.3f | A:%.2f,%.2f,%.2f | M:%.1f,%.1f,%.1f\n",
-    payload[0], payload[1], payload[2], payload[3],
-    payload[4], payload[5], payload[6],
-    payload[7], payload[8], payload[9]
+    "FSR: %f\t|\tPOT: %f\t|\tTOF: %f\n",
+    payload[0], // FSR value
+    payload[1], // POT value
+    payload[2]  // TOF value
   );
 
   // 5) Add a delay!
-  // 10HZ
-  delay(100); // Example: delay 100ms between readings/sends
+
+  delay(250); // Example: delay 1000ms between readings/sends
 }
