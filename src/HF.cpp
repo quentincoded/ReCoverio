@@ -28,7 +28,7 @@ class MyServerCallbacks : public BLEServerCallbacks {
 };
 
 void initBLE() {
-  BLEDevice::init("Recover");
+  BLEDevice::init("ReCover");
   pServer = BLEDevice::createServer();
   pServer->setCallbacks(new MyServerCallbacks());
 
@@ -76,7 +76,9 @@ void handleBLE() {
 
   // 2) Pack into a single float buffer:
   float payload[3] = {0}; // Adjust size as needed
-
+  //radom values for testing
+    fsr_value = 1;
+    pot_value = 2;
     payload[0] = (float)fsr_value; // Put FSR value in the first slot
     payload[1] = (float)pot_value; // Example for potentiometer
     payload[2] = 0.0f; // Placeholder for TOF value

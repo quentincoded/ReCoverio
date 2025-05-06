@@ -9,8 +9,8 @@
 
 
 // Custom Service and Characteristic UUIDs
-#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+#define SERVICE_UUID        "9f3c872e-2f1b-4c58-bc2a-5a2e2f48f519"
+#define CHARACTERISTIC_UUID "2d8e1b65-9d11-43ea-b0f5-c51cb352ddfa"
 
 // Pin definitions for sensors (Use const int or #define) const in is better than define for type saftey
 const int FSR_PIN = 0;
