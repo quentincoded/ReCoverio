@@ -3,6 +3,7 @@
 #include <Arduino.h>
 // #include <Adafruit_BNO055.h>
 #include <Wire.h>
+#include <SparkFun_VL6180X.h>
 
 
 

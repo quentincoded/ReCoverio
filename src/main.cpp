@@ -4,6 +4,7 @@
 // #include <Adafruit_Sensor.h>
 // #include <Adafruit_BNO055.h>
 #include "HF.h"
+#include <SparkFun_VL6180X.h> // Include the library for the VL6180X ToF sensor
 
 // Sample rate (in ms) between BLE notifications
 //const int BNO055_SAMPLERATE_DELAY_MS = 100;
