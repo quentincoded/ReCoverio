@@ -1,5 +1,5 @@
 // main.ino
-// #include <Wire.h>
+#include <Wire.h>
 #include <Arduino.h>
 // #include <Adafruit_Sensor.h>
 // #include <Adafruit_BNO055.h>
@@ -11,18 +11,28 @@
 
 // Create the sensor instance
 // Adafruit_BNO055 bno = Adafruit_BNO055(-1, 0x28, &Wire);
-
+void printIdentification(struct VL6180xIdentification *temp);
 
 
 void setup() {
   Serial.begin(115200);
   while (!Serial) delay(10);
-  Serial.println("FSR + POTENTIOMETER + TOF (to be implemented) + BLE Sensor Fusion");
+  Serial.println("FSR + POTENTIOMETER + TOF (to be implemented)");
 
-  if (true) {
-    Serial.println("Ooops, no BNO055 detected ... Check wiring!");
-    
-  }
+  Wire.begin(4, 5);  // GPIO 4 = SDA, GPIO 5 = SCL  Start I2C library
+  delay(100);           // delay .1s
+
+  sensor.getIdentification(&identification); // Retrieve manufacture info from device memory
+  printIdentification(&identification);      // Helper function to print all the Module information
+
+  // if (sensor.VL6180xInit() != 0)
+  // {
+  //   Serial.println("Failed to initialize. Freezing..."); // Initialize device and check for errors
+  //   while (1)
+  //     ;
+  // }
+
+  sensor.VL6180xDefautSettings(); // Load default settings to get started.
 
   delay(1000);
   pinMode(FSR_PIN, INPUT);
@@ -41,4 +51,13 @@ void setup() {
 
 void loop() {
   handleBLE();
+}
+
+
+// Define the printIdentification function here
+void printIdentification(struct VL6180xIdentification *temp)
+{
+  Serial.print("Model ID = ");
+  Serial.println(temp->idModel);
+  //stuff
 }

@@ -7,6 +7,8 @@
 
 
 
+VL6180xIdentification identification;
+VL6180x sensor(VL6180X_ADDRESS);
 // These symbols are defined in your main sketch:
 // extern Adafruit_BNO055 bno;
 //extern const int       BNO055_SAMPLERATE_DELAY_MS;
@@ -60,6 +62,8 @@ void handleBLE() {
   
   int fsr_value=analogRead(FSR_PIN);
   int pot_value = analogRead(POT_PIN);
+  int distance = sensor.getDistance();
+
 
   //print the values
   // Serial.print("FSR Value: ");
@@ -82,7 +86,8 @@ void handleBLE() {
     pot_value = 2;
     payload[0] = (float)fsr_value; // Put FSR value in the first slot
     payload[1] = (float)pot_value; // Example for potentiometer
-    payload[2] = 0.0f; // Placeholder for TOF value
+    payload[2] = (float)distance;
+
     // quat.w(), quat.x(), quat.y(), quat.z(),
     // linAccel.x(), linAccel.y(), linAccel.z(),
     // mag.x(), mag.y(), mag.z()
@@ -105,3 +110,4 @@ void handleBLE() {
 
   delay(250); // Example: delay 1000ms between readings/sends
 }
+
