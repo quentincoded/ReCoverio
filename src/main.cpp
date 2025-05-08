@@ -17,20 +17,20 @@ void printIdentification(struct VL6180xIdentification *temp);
 void setup() {
   Serial.begin(115200);
   while (!Serial) delay(10);
-  Serial.println("FSR + POTENTIOMETER + TOF (to be implemented)");
+  Serial.println("FSR + POTENTIOMETER + TOF ");
 
-  Wire.begin(4, 5);  // GPIO 4 = SDA, GPIO 5 = SCL  Start I2C library
+  Wire.begin(4, 5);  // GPIO 4 = SDA yellow, GPIO 5 = SCL green  Start I2C library
   delay(100);           // delay .1s
 
   sensor.getIdentification(&identification); // Retrieve manufacture info from device memory
   printIdentification(&identification);      // Helper function to print all the Module information
 
-  // if (sensor.VL6180xInit() != 0)
-  // {
-  //   Serial.println("Failed to initialize. Freezing..."); // Initialize device and check for errors
-  //   while (1)
-  //     ;
-  // }
+  if (sensor.VL6180xInit() != 0)
+  {
+    Serial.println("Failed to initialize. Freezing..."); // Initialize device and check for errors
+    while (1)
+      ;
+  }
 
   sensor.VL6180xDefautSettings(); // Load default settings to get started.
 
