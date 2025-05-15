@@ -31,17 +31,25 @@ class MyServerCallbacks : public BLEServerCallbacks {
 };
 
 void initBLE() {
-  BLEDevice::init("ReCover");
+  Serial.println("Initializing BLE..."); // Add this
+  BLEDevice::init("ReCover"); // Set the device name
+  Serial.println("BLEDevice initialized.");
+  Serial.println("BLE server created.");
   pServer = BLEDevice::createServer();
   pServer->setCallbacks(new MyServerCallbacks());
+  Serial.println("BLE server callbacks set.");
 
   auto* service = pServer->createService(SERVICE_UUID);
+  Serial.println("BLE service created."); // Add this
   pCharacteristic = service->createCharacteristic(
     CHARACTERISTIC_UUID,
     BLECharacteristic::PROPERTY_NOTIFY
   );
+  Serial.println("BLE characteristic created."); // Add this
   pCharacteristic->addDescriptor(new BLE2902());
+  Serial.println("BLE descriptor added."); // Add this
   service->start();
+  Serial.println("BLE service started.");
 
   auto* adv = BLEDevice::getAdvertising();
   adv->addServiceUUID(SERVICE_UUID);
@@ -84,6 +92,7 @@ void handleBLE() {
   //radom values for testing
     fsr_value = 1;
     pot_value = 2;
+    // distance = 3;
     payload[0] = (float)fsr_value; // Put FSR value in the first slot
     payload[1] = (float)pot_value; // Example for potentiometer
     payload[2] = (float)distance;

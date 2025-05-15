@@ -16,12 +16,18 @@ void printIdentification(struct VL6180xIdentification *temp);
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial) delay(10);
+  Serial.println("Initializing...");
+  while (!Serial) {
+    delay(10);
+    // Optional: Add a print here to see if it's stuck in the loop
+    Serial.println("Waiting for Serial...");
+  }
+  Serial.println("Serial port is ready.");
   Serial.println("FSR + POTENTIOMETER + TOF ");
 
   Wire.begin(4, 5);  // GPIO 4 = SDA yellow, GPIO 5 = SCL green  Start I2C library
   delay(100);           // delay .1s
-
+  Serial.println("Wire (I2C) initialized.");
   sensor.getIdentification(&identification); // Retrieve manufacture info from device memory
   printIdentification(&identification);      // Helper function to print all the Module information
 
