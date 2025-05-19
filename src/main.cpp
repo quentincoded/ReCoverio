@@ -57,6 +57,11 @@ void setup() {
 
 void loop() {
   handleBLE();
+  if (deviceConnected) {
+    delay(30); // Delay for approximately 30Hz (framerate)
+  } else {
+    delay(1000); // Keep the longer delay when not connected to avoid excessive scanning/processing
+  }
 }
 
 

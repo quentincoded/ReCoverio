@@ -117,6 +117,6 @@ void handleBLE() {
 
   // 5) Add a delay!
 
-  delay(250); // Example: delay 1000ms between readings/sends
+  delay(100); // Example: delay 1000ms between readings/sends
 }
 
